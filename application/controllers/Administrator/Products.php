@@ -255,7 +255,7 @@ class Products extends CI_Controller
                 u.Unit_Name,
                 (select ifnull(sum(pd.PurchaseDetails_TotalQuantity), 0) 
                     from tbl_purchasedetails pd 
-                    join tbl_purchasemaster pm on pm.PurchaseMaster_SlNo = pd.PurchaseMaster_IDNo
+                    left join tbl_purchasemaster pm on pm.PurchaseMaster_SlNo = pd.PurchaseMaster_IDNo
                     where pd.Product_IDNo = p.Product_SlNo
                     and pd.PurchaseDetails_branchID = '$branchId'
                     and pd.Status = 'a'
@@ -264,7 +264,7 @@ class Products extends CI_Controller
                         
                 (select ifnull(sum(prd.PurchaseReturnDetails_ReturnQuantity), 0) 
                     from tbl_purchasereturndetails prd 
-                    join tbl_purchasereturn pr on pr.PurchaseReturn_SlNo = prd.PurchaseReturn_SlNo
+                    left join tbl_purchasereturn pr on pr.PurchaseReturn_SlNo = prd.PurchaseReturn_SlNo
                     where prd.PurchaseReturnDetailsProduct_SlNo = p.Product_SlNo
                     and prd.PurchaseReturnDetails_brachid = '$branchId'
                     " . (isset($data->date) && $data->date != null ? " and pr.PurchaseReturn_ReturnDate <= '$data->date'" : "") . "
@@ -272,7 +272,7 @@ class Products extends CI_Controller
                         
                 (select ifnull(sum(sd.SaleDetails_TotalQuantity), 0) 
                     from tbl_saledetails sd
-                    join tbl_salesmaster sm on sm.SaleMaster_SlNo = sd.SaleMaster_IDNo
+                    left join tbl_salesmaster sm on sm.SaleMaster_SlNo = sd.SaleMaster_IDNo
                     where sd.Product_IDNo = p.Product_SlNo
                     and sd.SaleDetails_BranchId  = '$branchId'
                     and sd.Status = 'a'
@@ -289,7 +289,7 @@ class Products extends CI_Controller
                         
                 (select ifnull(sum(dmd.DamageDetails_DamageQuantity), 0) 
                     from tbl_damagedetails dmd
-                    join tbl_damage dm on dm.Damage_SlNo = dmd.Damage_SlNo
+                    left join tbl_damage dm on dm.Damage_SlNo = dmd.Damage_SlNo
                     where dmd.Product_SlNo = p.Product_SlNo
                     and dmd.status = 'a'
                     and dm.Damage_brunchid = '$branchId'
@@ -298,7 +298,7 @@ class Products extends CI_Controller
             
                 (select ifnull(sum(trd.quantity), 0)
                     from tbl_transferdetails trd
-                    join tbl_transfermaster tm on tm.transfer_id = trd.transfer_id
+                    left join tbl_transfermaster tm on tm.transfer_id = trd.transfer_id
                     where trd.product_id = p.Product_SlNo
                     and tm.transfer_from = '$branchId'
                     " . (isset($data->date) && $data->date != null ? " and tm.transfer_date <= '$data->date'" : "") . "
@@ -306,7 +306,7 @@ class Products extends CI_Controller
 
                 (select ifnull(sum(trd.quantity), 0)
                     from tbl_transferdetails trd
-                    join tbl_transfermaster tm on tm.transfer_id = trd.transfer_id
+                    left join tbl_transfermaster tm on tm.transfer_id = trd.transfer_id
                     where trd.product_id = p.Product_SlNo
                     and tm.transfer_to = '$branchId'
                     " . (isset($data->date) && $data->date != null ? " and tm.transfer_date <= '$data->date'" : "") . "

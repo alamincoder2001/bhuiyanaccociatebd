@@ -37,58 +37,47 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom:1px #ccc solid;margin-bottom:5px;">
 			<div class="form-group" style="margin-top:10px;">
-				<label class="col-sm-1 control-label no-padding"> Select Branch </label>
-				<div class="col-sm-2">
+				<div class="col-md-2">
 					<select v-model="branchId" id="" class="form-control no-padding" style="border-radius: 4px;">
-						<option value="" selected disabled>Select</option>
+						<option value="" selected disabled>Select Branch</option>
 						<option v-for="(mbranch,index) in onlyBranch" :key="index" :value="mbranch.brunch_id">{{mbranch.Brunch_name}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="form-group" style="margin-top:10px;">
-				<label class="col-sm-1  control-label no-padding-right"> Select Type </label>
-				<div class="col-sm-2">
+				<div class="col-md-2">
 					<v-select v-bind:options="searchTypes" v-model="selectedSearchType" label="text" v-on:input="onChangeSearchType"></v-select>
 				</div>
 			</div>
 
-			<!-- <div class="form-group" style="margin-top:10px;" v-if="selectedSearchType.value == 'current'">
-				<label class="col-sm-1">Model</label>
-				<div class="col-sm-2">
-					<select v-model="model_name" id="" style="width: 150px;border-radius: 4px;">
-						<option value="" disabled>Select</option>
-						<option v-for="model in models" :value="model.model_id">{{ model.model_name }}</option>
-					</select>
-				</div>
-			</div> -->
 			<div class="form-group" style="margin-top:10px;" v-if="selectedSearchType.value == 'category'">
-				<div class="col-sm-2" style="margin-left:15px;">
-					<v-select v-bind:options="categories" v-model="selectedCategory" label="ProductCategory_Name"></v-select>
+				<div class="col-md-2">
+					<v-select v-bind:options="categories" v-model="selectedCategory" label="ProductCategory_Name" placeholder="Select Category"></v-select>
 				</div>
 			</div>
 
 			<div class="form-group" style="margin-top:10px;" v-if="selectedSearchType.value == 'product'">
-				<div class="col-sm-2" style="margin-left:15px;">
-					<v-select v-bind:options="products" v-model="selectedProduct" label="display_text"></v-select>
+				<div class="col-md-2">
+					<v-select v-bind:options="products" v-model="selectedProduct" label="display_text" placeholder="Select Product"></v-select>
 				</div>
 			</div>
 
 			<div class="form-group" style="margin-top:10px;" v-if="selectedSearchType.value == 'brand'">
-				<div class="col-sm-2" style="margin-left:15px;">
-					<v-select v-bind:options="brands" v-model="selectedBrand" label="brand_name"></v-select>
+				<div class="col-md-2">
+					<v-select v-bind:options="brands" v-model="selectedBrand" label="brand_name" placeholder="Select Brand"></v-select>
 				</div>
 			</div>
 
 			<div class="form-group" style="margin-top:10px;">
-				<div class="col-sm-2" style="margin-left:15px;">
+				<div class="col-md-2">
 					<input type="date" class="form-control" v-model="date">
 				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-2" style="margin-left:15px;">
-					<input type="button" class="btn btn-primary" value="Show Report" v-on:click="getStock" style="margin-top:0px;border:0px;height:28px;">
+			<div class="form-group" style="margin:10px 0;">
+				<div class="col-md-2">
+					<input type="button" class="btn btn-primary" value="Show Report" v-on:click="getStock" style="padding: 3px 5px;border: 0;">
 				</div>
 			</div>
 		</div>
@@ -171,8 +160,8 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<th colspan="12" style="text-align:right;">Total Stock Value</th>
-							<th>{{ totalStockValue | decimal }}</th>
+							<th colspan="13" style="text-align:right;">Total Stock Value</th>
+							<th colspan="2">{{ totalStockValue | decimal }}</th>
 						</tr>
 					</tfoot>
 				</table>
@@ -212,7 +201,7 @@
 					//{text: 'Brand Wise Stock', value: 'brand'}
 				],
 				selectedSearchType: {
-					text: 'select',
+					text: 'select Type',
 					value: ''
 				},
 				searchType: null,
